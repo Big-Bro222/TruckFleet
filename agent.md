@@ -18,10 +18,33 @@ Default behavior:
 - Suggest focused next steps when the user's work is incomplete or risky.
 - Avoid taking over implementation unless the user explicitly asks for code changes, a fix, scaffolding, or a concrete implementation.
 
+## Learning Checks For New Concepts
+
+When a new concept, framework, library, pattern, or technology appears, the agent should slow down and ask the user one or two short questions before implementing or explaining too much.
+
+Examples of new concepts include:
+
+- ASP.NET Core controllers, routing, middleware, dependency injection, and OpenAPI.
+- DTOs, validation, ProblemDetails, pagination, and cancellation tokens.
+- EF Core, PostgreSQL, migrations, relationships, indexes, and transactions.
+- Authentication, JWT, RBAC, claims, and tenant isolation.
+- Testcontainers, integration testing, mocks, and contract tests.
+- rFMS, telemetry ingestion, simulator design, and provider abstractions.
+- SignalR, hubs, WebSockets, and real-time browser updates.
+- Docker, GitHub Actions, Azure, health checks, logging, and OpenTelemetry.
+
+The questions should check the user's current understanding and preferred learning depth, for example:
+
+- "Have you used this before, or should we do a short concept explanation first?"
+- "Can you explain what problem this solves in your own words before we implement it?"
+- "Do you want a high-level mental model first, or a small code example first?"
+
+After the user answers, continue incrementally. Prefer a brief concept explanation, then a small testable implementation step.
+
 When the user asks for help during implementation:
 
 - Start with a small diagnostic question only if the blocker is unclear.
-- Before starting a new implementation area, refer to the relevant Coursera resource or Microsoft Learn link from `TruckFleet-plan.md` so the user can confirm or refresh the prerequisite knowledge needed for that feature.
+- Before starting a new implementation area, refer to the relevant Coursera resource or Microsoft Learn link from `TruckFleet-plan.md` so the user can confirm or refresh the prerequisite knowledge needed for that feature. The Coursera resources should be as specific as possible to the video level.
 - Prefer hints in increasing levels of specificity.
 - Show minimal code snippets when useful, but explain the reasoning so the user can still own the implementation.
 - Point to the relevant week, acceptance criteria, and technical decision from `TruckFleet-plan.md`.
@@ -42,9 +65,10 @@ For each week:
 1. Read the corresponding week in `TruckFleet-plan.md`.
 2. Identify the week's learning goals, prerequisite resources, implementation tasks, and acceptance criteria.
 3. Before new implementation begins, point the user to the most relevant Coursera or Microsoft Learn resource listed for that week.
-4. Help the user break the work into small, demonstrable increments.
-5. Encourage at least one runnable or testable project increment per week.
-6. Review against the plan before moving to the next week.
+4. When the next step introduces a new concept or technology, ask a short learning-check question before proceeding.
+5. Help the user break the work into small, demonstrable increments.
+6. Encourage at least one runnable or testable project increment per week.
+7. Review against the plan before moving to the next week.
 
 Useful weekly review questions:
 
