@@ -1,0 +1,109 @@
+@HostAddress = http://localhost:5010
+@ExistingTripId = 00000000-0000-0000-0000-000000000000
+@MissingTripId = 44444444-4444-4444-4444-444444444444
+@ExistingTruckId = 00000000-0000-0000-0000-000000000000
+@ExistingDriverId = 00000000-0000-0000-0000-000000000000
+@MissingTruckId = 11111111-1111-1111-1111-111111111111
+@MissingDriverId = 22222222-2222-2222-2222-222222222222
+
+### Trips - list all
+GET {{HostAddress}}/api/trips
+Accept: application/json
+
+### Trips - create valid trip
+POST {{HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "truckId": "{{ExistingTruckId}}",
+  "driverId": "{{ExistingDriverId}}",
+  "origin": "Stockholm",
+  "destination": "Gothenburg",
+  "plannedStartTime": "2026-10-01T08:00:00+02:00",
+  "plannedEndTime": "2026-10-01T16:00:00+02:00"
+}
+
+### Trips - create with missing truck should return 404
+POST {{HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "truckId": "{{MissingTruckId}}",
+  "driverId": "{{ExistingDriverId}}",
+  "origin": "Stockholm",
+  "destination": "Gothenburg",
+  "plannedStartTime": "2026-10-01T08:00:00+02:00",
+  "plannedEndTime": "2026-10-01T16:00:00+02:00"
+}
+
+### Trips - create with missing driver should return 404
+POST {{HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "truckId": "{{ExistingTruckId}}",
+  "driverId": "{{MissingDriverId}}",
+  "origin": "Stockholm",
+  "destination": "Gothenburg",
+  "plannedStartTime": "2026-10-01T08:00:00+02:00",
+  "plannedEndTime": "2026-10-01T16:00:00+02:00"
+}
+
+### Trips - invalid planned time range should return 400
+POST {{HostAddress}}/api/trips
+Content-Type: application/json
+
+{
+  "truckId": "{{ExistingTruckId}}",
+  "driverId": "{{ExistingDriverId}}",
+  "origin": "Stockholm",
+  "destination": "Gothenburg",
+  "plannedStartTime": "2026-10-01T16:00:00+02:00",
+  "plannedEndTime": "2026-10-01T08:00:00+02:00"
+}
+
+### Trips - get existing trip
+GET {{HostAddress}}/api/trips/{{ExistingTripId}}
+Accept: application/json
+
+### Trips - get missing trip should return 404
+GET {{HostAddress}}/api/trips/{{MissingTripId}}
+Accept: application/json
+
+### Trips - update existing trip
+PUT {{HostAddress}}/api/trips/{{ExistingTripId}}
+Content-Type: application/json
+
+{
+  "truckId": "{{ExistingTruckId}}",
+  "driverId": "{{ExistingDriverId}}",
+  "origin": "Uppsala",
+  "destination": "Malmo",
+  "plannedStartTime": "2026-10-02T08:00:00+02:00",
+  "plannedEndTime": "2026-10-02T18:00:00+02:00"
+}
+
+### Trips - update missing trip should return 404
+PUT {{HostAddress}}/api/trips/{{MissingTripId}}
+Content-Type: application/json
+
+{
+  "truckId": "{{ExistingTruckId}}",
+  "driverId": "{{ExistingDriverId}}",
+  "origin": "Uppsala",
+  "destination": "Malmo",
+  "plannedStartTime": "2026-10-02T08:00:00+02:00",
+  "plannedEndTime": "2026-10-02T18:00:00+02:00"
+}
+
+### Trips - delete existing trip
+DELETE {{HostAddress}}/api/trips/{{ExistingTripId}}
+Accept: application/json
+
+### Trips - get deleted trip should return 404
+GET {{HostAddress}}/api/trips/{{ExistingTripId}}
+Accept: application/json
+
+### Trips - delete missing trip should return 404
+DELETE {{HostAddress}}/api/trips/{{MissingTripId}}
+Accept: application/json

@@ -735,6 +735,7 @@ Microsoft Learn：
 | 7 | 同上 | 文档 | Client and server error responses | 10 分钟 |
 | 8 | [OpenAPI support in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/overview?view=aspnetcore-10.0) | 文档 | OpenAPI packages、`AddOpenApi` 与 `MapOpenApi` | 20 分钟 |
 | 9 | 同上 | 文档 | Generate documents at run time / build time | 15 分钟 |
+| 10 | [Use generated OpenAPI documents](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/openapi/using-openapi-documents?view=aspnetcore-10.0) | 文档 | Swagger UI / Scalar 等交互式 API 文档工具与 OpenAPI document 的关系 | 20 分钟 |
 
 Microsoft Learn 建议用时：约 2 小时 15 分钟。
 
@@ -746,7 +747,8 @@ Microsoft Learn 建议用时：约 2 小时 15 分钟。
 - ProblemDetails；
 - HTTP status codes；
 - Pagination、filtering 和 sorting；
-- CancellationToken。
+- CancellationToken；
+- Swagger UI / interactive API docs。
 
 #### 实现任务
 
@@ -757,7 +759,7 @@ Microsoft Learn 建议用时：约 2 小时 15 分钟。
 - 将 DTO 与 Domain Entity 分离；
 - 添加请求验证；
 - 使用 ProblemDetails 统一错误格式；
-- 配置 Swagger/OpenAPI；
+- 配置 OpenAPI document 与 Swagger UI 或等价的交互式 API 文档；
 - 创建 `.http` 或 Postman 测试文件。
 
 建议资源命名：
@@ -773,7 +775,7 @@ GET    /api/trips
 
 #### 验收标准
 
-- 能通过 Swagger 完成车辆 CRUD；
+- 能通过 Swagger UI 或等价的交互式 API 文档完成车辆 CRUD；
 - 不直接返回 EF 或 Domain Entity；
 - 不存在的资源返回 404；
 - 无效输入返回 400；

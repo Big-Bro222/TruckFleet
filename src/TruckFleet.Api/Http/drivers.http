@@ -1,0 +1,84 @@
+@HostAddress = http://localhost:5010
+@ExistingDriverId = 00000000-0000-0000-0000-000000000000
+@MissingDriverId = 22222222-2222-2222-2222-222222222222
+
+### Drivers - list all
+GET {{HostAddress}}/api/drivers
+Accept: application/json
+
+### Drivers - create valid driver
+POST {{HostAddress}}/api/drivers
+Content-Type: application/json
+
+{
+  "name": "Driver 1",
+  "licenseNumber": "SE-DRV-001",
+  "licenseExpiredDate": "2028-12-31"
+}
+
+### Drivers - duplicate license number should return 409
+POST {{HostAddress}}/api/drivers
+Content-Type: application/json
+
+{
+  "name": "Driver 2",
+  "licenseNumber": "SE-DRV-001",
+  "licenseExpiredDate": "2029-12-31"
+}
+
+### Drivers - invalid create should return 400
+POST {{HostAddress}}/api/drivers
+Content-Type: application/json
+
+{
+  "name": "",
+  "licenseNumber": "",
+  "licenseExpiredDate": "2028-12-31"
+}
+
+### Drivers - get existing driver
+GET {{HostAddress}}/api/drivers/{{ExistingDriverId}}
+Accept: application/json
+
+### Drivers - get missing driver should return 404
+GET {{HostAddress}}/api/drivers/{{MissingDriverId}}
+Accept: application/json
+
+### Drivers - update existing driver
+PUT {{HostAddress}}/api/drivers/{{ExistingDriverId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Driver 1",
+  "licenseExpiredDate": "2030-12-31"
+}
+
+### Drivers - update missing driver should return 404
+PUT {{HostAddress}}/api/drivers/{{MissingDriverId}}
+Content-Type: application/json
+
+{
+  "name": "Missing Driver",
+  "licenseExpiredDate": "2030-12-31"
+}
+
+### Drivers - invalid update should return 400
+PUT {{HostAddress}}/api/drivers/{{ExistingDriverId}}
+Content-Type: application/json
+
+{
+  "name": "",
+  "licenseExpiredDate": "2030-12-31"
+}
+
+### Drivers - delete existing driver
+DELETE {{HostAddress}}/api/drivers/{{ExistingDriverId}}
+Accept: application/json
+
+### Drivers - get deleted driver should return 404
+GET {{HostAddress}}/api/drivers/{{ExistingDriverId}}
+Accept: application/json
+
+### Drivers - delete missing driver should return 404
+DELETE {{HostAddress}}/api/drivers/{{MissingDriverId}}
+Accept: application/json

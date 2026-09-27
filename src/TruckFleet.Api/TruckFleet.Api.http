@@ -1,6 +1,6 @@
-@TruckFleet.Api_HostAddress = http://localhost:5010
-
-GET {{TruckFleet.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
+### TruckFleet API request files
+# Resource-specific HTTP requests live in:
+# - Http/trucks.http
+# - Http/drivers.http
+# - Http/fleets.http
+# - Http/trips.http

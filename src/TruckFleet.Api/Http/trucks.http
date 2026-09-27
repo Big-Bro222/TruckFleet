@@ -1,0 +1,90 @@
+@HostAddress = http://localhost:5010
+@ExistingTruckId = 00000000-0000-0000-0000-000000000000
+@MissingTruckId = 11111111-1111-1111-1111-111111111111
+
+### Trucks - list all
+GET {{HostAddress}}/api/trucks
+Accept: application/json
+
+### Trucks - create valid truck
+POST {{HostAddress}}/api/trucks
+Content-Type: application/json
+
+{
+  "vin": "12345678901234567",
+  "name": "Truck 1",
+  "brand": "Volvo",
+  "truckType": "Tractor"
+}
+
+### Trucks - duplicate VIN should return 409
+POST {{HostAddress}}/api/trucks
+Content-Type: application/json
+
+{
+  "vin": "12345678901234567",
+  "name": "Truck 2",
+  "brand": "Volvo",
+  "truckType": "Rigid"
+}
+
+### Trucks - invalid VIN should return 400
+POST {{HostAddress}}/api/trucks
+Content-Type: application/json
+
+{
+  "vin": "123",
+  "name": "Invalid Truck",
+  "brand": "Volvo",
+  "truckType": "Tractor"
+}
+
+### Trucks - get existing truck
+GET {{HostAddress}}/api/trucks/{{ExistingTruckId}}
+Accept: application/json
+
+### Trucks - get missing truck should return 404
+GET {{HostAddress}}/api/trucks/{{MissingTruckId}}
+Accept: application/json
+
+### Trucks - update existing truck
+PUT {{HostAddress}}/api/trucks/{{ExistingTruckId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Truck 1",
+  "brand": "Volvo",
+  "truckType": "Rigid"
+}
+
+### Trucks - update missing truck should return 404
+PUT {{HostAddress}}/api/trucks/{{MissingTruckId}}
+Content-Type: application/json
+
+{
+  "name": "Missing Truck",
+  "brand": "Volvo",
+  "truckType": "Rigid"
+}
+
+### Trucks - invalid update should return 400
+PUT {{HostAddress}}/api/trucks/{{ExistingTruckId}}
+Content-Type: application/json
+
+{
+  "name": "",
+  "brand": "",
+  "truckType": ""
+}
+
+### Trucks - delete existing truck
+DELETE {{HostAddress}}/api/trucks/{{ExistingTruckId}}
+Accept: application/json
+
+### Trucks - get deleted truck should return 404
+GET {{HostAddress}}/api/trucks/{{ExistingTruckId}}
+Accept: application/json
+
+### Trucks - delete missing truck should return 404
+DELETE {{HostAddress}}/api/trucks/{{MissingTruckId}}
+Accept: application/json

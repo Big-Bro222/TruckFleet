@@ -1,0 +1,75 @@
+@HostAddress = http://localhost:5010
+@ExistingFleetId = 00000000-0000-0000-0000-000000000000
+@MissingFleetId = 33333333-3333-3333-3333-333333333333
+
+### Fleets - list all
+GET {{HostAddress}}/api/fleets
+Accept: application/json
+
+### Fleets - create valid fleet
+POST {{HostAddress}}/api/fleets
+Content-Type: application/json
+
+{
+  "name": "Fleet 1"
+}
+
+### Fleets - duplicate name should return 409
+POST {{HostAddress}}/api/fleets
+Content-Type: application/json
+
+{
+  "name": "Fleet 1"
+}
+
+### Fleets - invalid create should return 400
+POST {{HostAddress}}/api/fleets
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Fleets - get existing fleet
+GET {{HostAddress}}/api/fleets/{{ExistingFleetId}}
+Accept: application/json
+
+### Fleets - get missing fleet should return 404
+GET {{HostAddress}}/api/fleets/{{MissingFleetId}}
+Accept: application/json
+
+### Fleets - update existing fleet
+PUT {{HostAddress}}/api/fleets/{{ExistingFleetId}}
+Content-Type: application/json
+
+{
+  "name": "Updated Fleet 1"
+}
+
+### Fleets - update missing fleet should return 404
+PUT {{HostAddress}}/api/fleets/{{MissingFleetId}}
+Content-Type: application/json
+
+{
+  "name": "Missing Fleet"
+}
+
+### Fleets - invalid update should return 400
+PUT {{HostAddress}}/api/fleets/{{ExistingFleetId}}
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Fleets - delete existing fleet
+DELETE {{HostAddress}}/api/fleets/{{ExistingFleetId}}
+Accept: application/json
+
+### Fleets - get deleted fleet should return 404
+GET {{HostAddress}}/api/fleets/{{ExistingFleetId}}
+Accept: application/json
+
+### Fleets - delete missing fleet should return 404
+DELETE {{HostAddress}}/api/fleets/{{MissingFleetId}}
+Accept: application/json
